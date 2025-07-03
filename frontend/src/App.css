@@ -1,5 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital@1&display=swap");
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --button-color: #0295ff;
+  --button-green: #28a745;
+  --sub-text-color: #333;
+  --div-color: #c8c8c8cb;
+}
+
+.dark-theme {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --button-color: #00528d;
+  --button-green: #1f8637;
+  --sub-text-color: #a2a2a2;
+  --div-color: #484848ec;
+}
+
 * {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  margin: 0px;
+  border: none;
+  padding: 0px;
+}
+
+a {
+  color: black;
+}
+
+input {
+  border: solid black 1px;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: 0.3s ease;
+  overflow-x: hidden;
+}
+
+.blurModal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  inset: 0;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.3);
 }
