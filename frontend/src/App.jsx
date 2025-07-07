@@ -31,6 +31,7 @@ import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 //telas
 import Home from "./screens/Home/Home";
+import Assinaturas from "./screens/Assinaturas/Assinaturas";
 
 import { HashRouter as Router, Link, Route, Routes } from "react-router-dom";
 
@@ -142,6 +143,7 @@ function App() {
         </div>
         <Routes>
           <Route path="/" Component={Home} />
+          <Route path="/assinaturas" Component={Assinaturas} />
         </Routes>
       </Router>
     </div>

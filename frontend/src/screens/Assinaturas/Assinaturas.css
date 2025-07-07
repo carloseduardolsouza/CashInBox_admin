@@ -1,0 +1,26 @@
+#Assinaturas {
+    margin-left: 55px;
+}
+
+.table {
+    width: 100%;
+    text-align: center;
+}
+
+.table > thead > tr > th {
+    background-color: #0000004d;
+}
+
+.table > tbody > tr > td {
+    border-bottom: 1px solid black;
+}
+
+.bttEditarAssinatura {
+    font-weight: bold;
+    background-color: blue;
+    color: white;
+    padding: 3px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
