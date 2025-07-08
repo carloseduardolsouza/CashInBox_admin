@@ -1,0 +1,153 @@
+/* NovaAssinatura.css */
+
+.nova-assinatura__blur-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.nova-assinatura__container {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nova-assinatura__title {
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222;
+  text-align: center;
+}
+
+.nova-assinatura__field {
+  margin-bottom: 1rem;
+}
+
+.nova-assinatura__field--last {
+  margin-bottom: 1.25rem;
+}
+
+.nova-assinatura__label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.nova-assinatura__input,
+.nova-assinatura__select {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1.7px solid #ccc;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  color: #222;
+  outline: none;
+  transition: border-color 0.25s ease;
+  box-sizing: border-box;
+}
+
+.nova-assinatura__input:focus,
+.nova-assinatura__select:focus {
+  border-color: #2563eb; /* Azul vibrante */
+  box-shadow: 0 0 5px rgba(37, 99, 235, 0.5);
+}
+
+.nova-assinatura__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.nova-assinatura__button {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.55rem 1.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.nova-assinatura__button:hover {
+  filter: brightness(0.9);
+}
+
+.nova-assinatura__button:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.nova-assinatura__button--cancel {
+  background-color: #d1d5db; /* cinza claro */
+  color: #333;
+}
+
+.nova-assinatura__button--cancel:hover {
+  background-color: #a3a8af;
+}
+
+.nova-assinatura__button--save {
+  background-color: #2563eb; /* azul */
+  color: white;
+}
+
+.nova-assinatura__button--save:hover {
+  background-color: #1d4ed8;
+}
+
+.nova-assinatura__select__control {
+  border-radius: 0.4rem !important;
+  border: 1.7px solid #ccc !important;
+  padding: 2px !important;
+  min-height: 38px !important;
+  box-shadow: none !important;
+  transition: border-color 0.25s ease !important;
+  font-size: 1rem;
+}
+
+.nova-assinatura__select__control--is-focused {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 5px rgba(37, 99, 235, 0.5) !important;
+}
+
+.nova-assinatura__select__menu {
+  border-radius: 0.4rem !important;
+  font-size: 1rem !important;
+}
+
+.nova-assinatura__select__option--is-focused {
+  background-color: #2563eb !important;
+  color: white !important;
+}
+
+.nova-assinatura__select__option--is-selected {
+  background-color: #1d4ed8 !important;
+  color: white !important;
+}
+
+/* Responsividade básica */
+@media (max-width: 480px) {
+  .nova-assinatura__container {
+    width: 90%;
+    padding: 1rem 1.2rem;
+  }
+
+  .nova-assinatura__title {
+    font-size: 1.3rem;
+  }
+}

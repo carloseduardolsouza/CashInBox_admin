@@ -32,6 +32,9 @@ import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 //telas
 import Home from "./screens/Home/Home";
 import Assinaturas from "./screens/Assinaturas/Assinaturas";
+import Usuarios from "./screens/Usuarios/Usuarios"
+import Planos from "./screens/Planos/Planos"
+import Boletos from "./screens/Boletos/Boletos";
 
 import { HashRouter as Router, Link, Route, Routes } from "react-router-dom";
 
@@ -98,7 +101,7 @@ function App() {
             <p style={style}>Assinaturas</p>
           </Link>
           <Link
-            to="/clientes"
+            to="/usuarios"
             className="MenuLateralBox"
             onClick={() => setStatusMenu("clientes")}
           >
@@ -108,7 +111,7 @@ function App() {
             <p style={style}>Usuários</p>
           </Link>
           <Link
-            to="/produtos"
+            to="/planos"
             className="MenuLateralBox"
             onClick={() => setStatusMenu("produtos")}
           >
@@ -144,6 +147,9 @@ function App() {
         <Routes>
           <Route path="/" Component={Home} />
           <Route path="/assinaturas" Component={Assinaturas} />
+          <Route path="/usuarios" Component={Usuarios} />
+          <Route path="/planos" Component={Planos} />
+          <Route path="/boletos" Component={Boletos} />
         </Routes>
       </Router>
     </div>

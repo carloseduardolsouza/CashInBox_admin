@@ -1,0 +1,8 @@
+.button_delete_user {
+  background-color: red;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+}

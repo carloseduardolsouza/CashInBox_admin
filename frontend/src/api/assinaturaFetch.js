@@ -21,7 +21,7 @@ const editarAssinaturas = async (id, dados) => {
   try {
     const token = await pegarToken();
 
-    const response = await fetch(`${url}/editarAssinatura/${id}`, {
+    const response = await fetch(`${url}/admin/editarAssinaturas/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -64,7 +64,7 @@ const cadastrarAssinaturas = async (dados) => {
   try {
     const token = await pegarToken();
 
-    const response = await fetch(`${url}/cadastrarAssinatura`, {
+    const response = await fetch(`${url}/admin/cadastrarAssinatura`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
