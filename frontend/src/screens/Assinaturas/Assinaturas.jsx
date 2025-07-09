@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 //Icones
 import { FaSearch } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 
 //components
 import NovaAssinatura from "./components/NovaAssinatura/NovaAssinatura";
@@ -14,6 +15,8 @@ function Assinaturas() {
   const [assinaturas, setAssinaturas] = useState([]);
   const [modalAtiva, setModalAtiva] = useState(null);
   const [dadosAssinatura, setDadosAssinatura] = useState({});
+
+  const [arraySelect, setArraySelect] = useState([]);
 
   const listarAssinaturas = async () => {
     const response = await assinaturaFetch.listarAssinaturas();
@@ -52,6 +55,24 @@ function Assinaturas() {
     }
   };
 
+  const toggleArraySelect = (id) => {
+    if (arraySelect.includes(id)) {
+      setArraySelect(arraySelect.filter((item) => item !== id));
+    } else {
+      setArraySelect([...arraySelect, id]);
+    }
+  };
+
+  const excluirAssinaturasSelecionadas = async () => {
+    if (arraySelect.length === 0) return;
+
+    await Promise.all(
+      arraySelect.map((id) => assinaturaFetch.excluirAssinaturas(id))
+    );
+    await listarAssinaturas();
+    setArraySelect([]);
+  };
+
   return (
     <div id="Assinaturas">
       <h2>Assinaturas</h2>
@@ -74,6 +95,14 @@ function Assinaturas() {
             <FaSearch />
           </button>
         </form>
+        <button
+          onClick={() => excluirAssinaturasSelecionadas()}
+          id="MdDeleteForever"
+          disabled={arraySelect.length === 0}
+        >
+          {" "}
+          <MdDeleteForever />
+        </button>
       </article>
       <main>
         <table className="table">
@@ -90,9 +119,15 @@ function Assinaturas() {
           <tbody>
             {assinaturas.map((dados) => {
               return (
-                <tr>
+                <tr
+                  key={dados.id}
+                  className={arraySelect.includes(dados.id) ? "ativo" : ""}
+                >
                   <td>
-                    <input type="checkbox"/>
+                    <input
+                      type="checkbox"
+                      onChange={() => toggleArraySelect(dados.id)}
+                    />
                   </td>
                   <td>{dados.status}</td>
                   <td>{dados.usuario.nome}</td>

@@ -19,17 +19,11 @@ function EditarPlano({ dados, fechar, atualizar }) {
     fechar(null);
   };
 
-  const deletarPlano = async () => {
-    await planoFetch.excluirPlanos(dados.id);
-    atualizar();
-    fechar(null);
-  };
   return (
     <div className="blurModal">
       <div id="EditarPlano">
         <div>
           <h2>Editar Plano "{dados.nome}"</h2>
-          <button onClick={() => fechar(null)}>X</button>
         </div>
 
         <form id="form_novo_plano" onSubmit={(e) => editarPlano(e)}>
@@ -61,11 +55,8 @@ function EditarPlano({ dados, fechar, atualizar }) {
           </label>
 
           <div className="novo_plano_buttons">
-            <button
-              style={{ backgroundColor: "red", color: "white" }}
-              onClick={() => deletarPlano()}
-            >
-              Deletar Plano
+            <button type="button" onClick={() => fechar(null)}>
+              Cancelar
             </button>
             <button
               style={{ backgroundColor: "#0295ff", color: "white" }}

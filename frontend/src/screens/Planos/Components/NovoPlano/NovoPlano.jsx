@@ -58,7 +58,9 @@ function NovoPlano({ fechar, atualizar }) {
           </label>
 
           <div className="novo_plano_buttons">
-            <button onClick={() => fechar(null)}>Cancelar</button>
+            <button onClick={() => fechar(null)} type="button">
+              Cancelar
+            </button>
             <button
               style={{ backgroundColor: "#0295ff", color: "white" }}
               type="submit"

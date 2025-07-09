@@ -43,7 +43,7 @@ const excluirAssinaturas = async (id) => {
   try {
     const token = await pegarToken();
 
-    const response = await fetch(`${url}/excluirAssinatura/${id}`, {
+    const response = await fetch(`${url}/admin/exluirAssinaturas/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

@@ -1,0 +1,21 @@
+.ativo {
+  background-color: #0296ff54;
+}
+
+#MdDeleteForever {
+  width: 35px;
+  height: 35px;
+  background: none;
+  border: solid red 1px;
+  border-radius: 5px;
+  color: red;
+  font-size: 25px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#MdDeleteForever:disabled {
+    border: solid #ff00006c 1px;
+    color: #ff00006c;
+    cursor: not-allowed;
+}

@@ -9,13 +9,15 @@ import EditarUsuario from "./components/EditarUsuario/EditarUsuario";
 
 //Icones
 import { FaSearch } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
 
 function Usuarios() {
   const [usuarios, setUsuarios] = useState([]);
   const [modalAtiva, setModalAtiva] = useState(null);
 
   const [dadosUsuario, setDadosUsuario] = useState({});
+
+  const [arraySelect, setArraySelect] = useState([]);
 
   const listarUsuarios = async () => {
     const response = await usuarioFetch.listarUsuarios();
@@ -51,14 +53,26 @@ function Usuarios() {
     }
   };
 
-  const deletarUsuario = async (id) => {
+  const toggleArraySelect = (id) => {
+    if (arraySelect.includes(id)) {
+      setArraySelect(arraySelect.filter((item) => item !== id));
+    } else {
+      setArraySelect([...arraySelect, id]);
+    }
+  };
+
+  const deletarUsuarios = async (id) => {
     if (id === 5) {
       window.alert("voce não pode deletar esse usuario");
       return;
-    } else {
-      await usuarioFetch.excluirUsuarios(id);
-      listarUsuarios();
     }
+    if (arraySelect.length === 0) return;
+
+    await Promise.all(
+      arraySelect.map((id) => usuarioFetch.excluirUsuarios(id))
+    );
+    await listarUsuarios();
+    setArraySelect([]);
   };
   return (
     <div id="Assinaturas">
@@ -82,12 +96,20 @@ function Usuarios() {
             <FaSearch />
           </button>
         </form>
+        <button
+          onClick={() => deletarUsuarios()}
+          id="MdDeleteForever"
+          disabled={arraySelect.length === 0}
+        >
+          {" "}
+          <MdDeleteForever />
+        </button>
       </article>
       <main>
         <table className="table">
           <thead>
             <tr>
-              <th>Deletar</th>
+              <th>*</th>
               <th>Nome</th>
               <th>Email</th>
               <th>CPF/CNPJ</th>
@@ -99,15 +121,19 @@ function Usuarios() {
           <tbody>
             {usuarios.map((dados) => {
               return (
-                <tr>
+                <tr
+                  key={dados.id}
+                  className={arraySelect.includes(dados.id) ? "ativo" : ""}
+                >
                   <td>
-                    <button className="button_delete_user" onClick={() => deletarUsuario(dados.id)}>
-                      <MdDelete />
-                    </button>
+                    <input
+                      type="checkbox"
+                      onChange={() => toggleArraySelect(dados.id)}
+                    />
                   </td>
                   <td>{dados.nome}</td>
                   <td>{dados.email}</td>
-                  <td>{dados.cpf_cnpj}</td>
+                  <td>{formatacao.formatarCpfCnpj(dados.cpf_cnpj)}</td>
                   <td>{formatacao.formatarDataHora(dados.ultimo_acesso)}</td>
                   <td>{dados.role}</td>
                   <td>
