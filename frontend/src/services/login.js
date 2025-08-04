@@ -1,4 +1,4 @@
-const url = `http://localhost:7777/auth`;
+const url = `https://cashinbox.shop/auth`;
 
 const credenciais = {
   email: "contact.carlossouzadev@gmail.com",

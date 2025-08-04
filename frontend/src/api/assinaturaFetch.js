@@ -1,5 +1,5 @@
 import { pegarToken } from "../services/login";
-const url = `http://localhost:7777`;
+const url = `https://cashinbox.shop`;
 
 const listarAssinaturas = async () => {
     const token = await pegarToken();

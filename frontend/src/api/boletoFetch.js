@@ -1,1 +1,1 @@
-const url = `http://localhost:7777/admin/`
+const url = `https://cashinbox.shop`;
