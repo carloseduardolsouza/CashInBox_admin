@@ -1,158 +1,304 @@
-import { useState } from "react";
-import "./Menu.css"
-import "./App.css";
+// src/App.jsx (versão simplificada para início)
+import React, { useState, useEffect } from 'react';
+import { HashRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
+import {
+  RiMenu2Fill,
+  RiCloseFill,
+  RiHomeLine,
+  RiHomeFill,
+  RiMoneyDollarCircleLine,
+  RiMoneyDollarCircleFill,
+  RiUserLine,
+  RiUserFill,
+  RiPriceTagLine,
+  RiPriceTagFill,
+  RiFileTextLine,
+  RiFileTextFill,
+  RiSettingsLine,
+  RiSettingsFill,
+  RiSunLine,
+  RiMoonLine
+} from 'react-icons/ri';
+import './App.css';
 
-//Home
-import { GoHome } from "react-icons/go";
-import { GoHomeFill } from "react-icons/go";
+// Componente de Loading simples
+const LoadingSpinner = ({ text = 'Carregando...' }) => (
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '200px',
+    gap: '1rem'
+  }}>
+    <div style={{
+      width: '40px',
+      height: '40px',
+      border: '3px solid var(--accent-primary)',
+      borderTop: '3px solid transparent',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite'
+    }}></div>
+    <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>{text}</p>
+  </div>
+);
 
-//configurações
-import { BsGear } from "react-icons/bs";
-import { BsGearFill } from "react-icons/bs";
+// Componente Sidebar
+const Sidebar = ({ theme, toggleTheme }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const location = useLocation();
 
-//menu
-import { RiMenu2Fill } from "react-icons/ri";
+  useEffect(() => {
+    setIsMobileOpen(false);
+  }, [location.pathname]);
 
-//vendas
-import { RiMoneyDollarCircleFill } from "react-icons/ri";
-import { RiMoneyDollarCircleLine } from "react-icons/ri";
+  const navigationItems = [
+    { path: '/', label: 'Home', icon: RiHomeLine, activeIcon: RiHomeFill },
+    { path: '/assinaturas', label: 'Assinaturas', icon: RiMoneyDollarCircleLine, activeIcon: RiMoneyDollarCircleFill },
+    { path: '/usuarios', label: 'Usuários', icon: RiUserLine, activeIcon: RiUserFill },
+    { path: '/planos', label: 'Planos', icon: RiPriceTagLine, activeIcon: RiPriceTagFill },
+    { path: '/boletos', label: 'Boletos', icon: RiFileTextLine, activeIcon: RiFileTextFill }
+  ];
 
-//clientes
-import { FaUser } from "react-icons/fa6";
-import { FaRegUser } from "react-icons/fa6";
-
-//produtos
-import { MdSell } from "react-icons/md";
-import { MdOutlineSell } from "react-icons/md";
-
-//boletos
-import { MdAccountBalanceWallet } from "react-icons/md";
-import { MdOutlineAccountBalanceWallet } from "react-icons/md";
-
-//telas
-import Home from "./screens/Home/Home";
-import Assinaturas from "./screens/Assinaturas/Assinaturas";
-import Usuarios from "./screens/Usuarios/Usuarios"
-import Planos from "./screens/Planos/Planos"
-import Boletos from "./screens/Boletos/Boletos";
-
-import { HashRouter as Router, Link, Route, Routes } from "react-router-dom";
-
-function App() {
-  //Status do menu
-  const [statusMenu, setStatusMenu] = useState("home");
-
-  //Define o tamanho e se o texto ira aparecer
-  const [windowWidth, setWindowWidth] = useState("45px");
-  const [windowDisplay, setWindowDisplay] = useState("none");
-
-  const style = {
-    display: windowDisplay,
-  };
-
-  //controla de forma geral como o menu deve se comportar
-  const menuOpen = (params) => {
-    if (params == false) {
-      setWindowDisplay("none");
-      setWindowWidth("45px");
-    }
-
-    if (params == true) {
-      setWindowWidth("160px");
-
-      setTimeout(() => {
-        setWindowDisplay("block");
-      }, 190);
-    }
-  };
-
-  //verifica se o menu esta aberto ou fechado
-  const VerificarStatusMenu = () => {
-    if (windowWidth == "45px") {
-      menuOpen(true);
-    } else menuOpen(false);
+  const isActive = (path) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
   };
 
   return (
-    <div className="App">
-      <Router>
-        <div className="MenuLateralBoxArea" style={{ width: windowWidth }}>
-          <div className="MenuLateralBox Outline" onClick={VerificarStatusMenu}>
-            <RiMenu2Fill className="iconsMenuLateral" />
-          </div>
-          <Link
-            to="/"
-            className="MenuLateralBox"
-            onClick={() => setStatusMenu("home")}
-          >
-            {(statusMenu === "home" && (
-              <GoHomeFill className="iconsMenuLateral" />
-            )) || <GoHome className="iconsMenuLateral" />}
-            <p style={style}>Home</p>
-          </Link>
-          <Link
-            to="/assinaturas"
-            className="MenuLateralBox"
-            onClick={() => setStatusMenu("assinaturas")}
-          >
-            {(statusMenu === "assinaturas" && (
-              <RiMoneyDollarCircleFill className="iconsMenuLateral" />
-            )) || <RiMoneyDollarCircleLine className="iconsMenuLateral" />}
-            <p style={style}>Assinaturas</p>
-          </Link>
-          <Link
-            to="/usuarios"
-            className="MenuLateralBox"
-            onClick={() => setStatusMenu("clientes")}
-          >
-            {(statusMenu === "clientes" && (
-              <FaUser className="iconsMenuLateral" />
-            )) || <FaRegUser className="iconsMenuLateral" />}
-            <p style={style}>Usuários</p>
-          </Link>
-          <Link
-            to="/planos"
-            className="MenuLateralBox"
-            onClick={() => setStatusMenu("produtos")}
-          >
-            {(statusMenu === "produtos" && (
-              <MdSell className="iconsMenuLateral" />
-            )) || <MdOutlineSell className="iconsMenuLateral" />}
-            <p style={style}>Planos</p>
-          </Link>
+    <>
+      {/* Mobile overlay */}
+      {isMobileOpen && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 99
+          }}
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
 
-           <Link
-            to="/boletos"
-            className="MenuLateralBox"
-            onClick={() => setStatusMenu("boletos")}
-          >
-            {(statusMenu === "boletos" && (
-              <MdAccountBalanceWallet className="iconsMenuLateral" />
-            )) || <MdOutlineAccountBalanceWallet className="iconsMenuLateral" />}
-            <p style={style}>Boletos</p>
-          </Link>
+      {/* Mobile menu button */}
+      <button
+        onClick={() => setIsMobileOpen(!isMobileOpen)}
+        style={{
+          position: 'fixed',
+          top: '1rem',
+          left: '1rem',
+          zIndex: 101,
+          display: 'none',
+          width: '44px',
+          height: '44px',
+          borderRadius: 'var(--radius-md)',
+          backgroundColor: 'var(--bg-primary)',
+          border: '1px solid var(--border-primary)',
+          boxShadow: 'var(--shadow-md)',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+        className="mobile-menu-button"
+      >
+        {isMobileOpen ? <RiCloseFill size={20} /> : <RiMenu2Fill size={20} />}
+      </button>
 
-          <Link
-            to="/configurações"
-            className="MenuLateralBox Preferencias"
-            onClick={() => setStatusMenu("configurações")}
+      {/* Sidebar */}
+      <nav 
+        className={`sidebar ${isExpanded ? 'expanded' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}
+        onMouseEnter={() => window.innerWidth > 640 && setIsExpanded(true)}
+        onMouseLeave={() => window.innerWidth > 640 && setIsExpanded(false)}
+      >
+        {/* Header */}
+        <div className="sidebar__header">
+          <button
+            className="sidebar__toggle"
+            onClick={() => setIsExpanded(!isExpanded)}
           >
-            {(statusMenu === "configurações" && (
-              <BsGearFill className="iconsMenuLateral" />
-            )) || <BsGear className="iconsMenuLateral" />}
-            <p style={style}>Preferencias</p>
-          </Link>
-          <div className="MenuLateralBox"></div>
+            <RiMenu2Fill />
+          </button>
+          <h1 className="sidebar__logo">Cash In Box</h1>
         </div>
-        <Routes>
-          <Route path="/" Component={Home} />
-          <Route path="/assinaturas" Component={Assinaturas} />
-          <Route path="/usuarios" Component={Usuarios} />
-          <Route path="/planos" Component={Planos} />
-          <Route path="/boletos" Component={Boletos} />
-        </Routes>
-      </Router>
-    </div>
+
+        {/* Navigation */}
+        <div className="sidebar__nav">
+          {navigationItems.map((item) => {
+            const Icon = isActive(item.path) ? item.activeIcon : item.icon;
+            
+            return (
+              <div key={item.path} className="nav-item">
+                <Link
+                  to={item.path}
+                  className={`nav-item__link ${isActive(item.path) ? 'active' : ''}`}
+                  onClick={() => setIsMobileOpen(false)}
+                >
+                  <Icon className="nav-item__icon" />
+                  <span className="nav-item__text">{item.label}</span>
+                </Link>
+                {!isExpanded && (
+                  <div className="nav-item__tooltip">{item.label}</div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Footer */}
+        <div className="sidebar__footer">
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'light' ? <RiMoonLine /> : <RiSunLine />}
+            <span className="theme-toggle__text">
+              {theme === 'light' ? 'Modo Escuro' : 'Modo Claro'}
+            </span>
+          </button>
+
+          <div className="nav-item">
+            <Link to="/configuracoes" className="nav-item__link">
+              <RiSettingsLine className="nav-item__icon" />
+              <span className="nav-item__text">Configurações</span>
+            </Link>
+          </div>
+
+          <div className="user-profile">
+            <div className="user-profile__avatar">A</div>
+            <div className="user-profile__info">
+              <div className="user-profile__name">Admin</div>
+              <div className="user-profile__role">Administrador</div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+};
+
+// Páginas simples
+const Home = () => (
+  <div>
+    <h1>Dashboard</h1>
+    <p>Bem-vindo ao painel administrativo do Cash In Box!</p>
+  </div>
+);
+
+const Assinaturas = () => (
+  <div>
+    <h1>Assinaturas</h1>
+    <p>Gerencie as assinaturas do sistema.</p>
+  </div>
+);
+
+const Usuarios = () => (
+  <div>
+    <h1>Usuários</h1>
+    <p>Gerencie os usuários do sistema.</p>
+  </div>
+);
+
+const Planos = () => (
+  <div>
+    <h1>Planos</h1>
+    <p>Gerencie os planos disponíveis.</p>
+  </div>
+);
+
+const Boletos = () => (
+  <div>
+    <h1>Boletos</h1>
+    <p>Gerencie os boletos do sistema.</p>
+  </div>
+);
+
+const NotFound = () => (
+  <div style={{ textAlign: 'center', padding: '2rem' }}>
+    <h1>404 - Página não encontrada</h1>
+    <p>A página que você está procurando não existe.</p>
+    <Link to="/" style={{ color: 'var(--accent-primary)' }}>
+      Voltar para o início
+    </Link>
+  </div>
+);
+
+// Layout principal
+const Layout = ({ children, theme, toggleTheme }) => (
+  <div className="app-layout">
+    <Sidebar theme={theme} toggleTheme={toggleTheme} />
+    <main className="main-content">
+      <div className="content-wrapper">
+        {children}
+      </div>
+    </main>
+  </div>
+);
+
+// App principal
+function App() {
+  const [theme, setTheme] = useState('light');
+
+  // Carregar tema do localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark ? 'dark' : 'light');
+    }
+  }, []);
+
+  // Aplicar tema ao documento
+  useEffect(() => {
+    document.documentElement.className = theme === 'dark' ? 'dark-theme' : '';
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={
+          <Layout theme={theme} toggleTheme={toggleTheme}>
+            <Home />
+          </Layout>
+        } />
+        <Route path="/assinaturas" element={
+          <Layout theme={theme} toggleTheme={toggleTheme}>
+            <Assinaturas />
+          </Layout>
+        } />
+        <Route path="/usuarios" element={
+          <Layout theme={theme} toggleTheme={toggleTheme}>
+            <Usuarios />
+          </Layout>
+        } />
+        <Route path="/planos" element={
+          <Layout theme={theme} toggleTheme={toggleTheme}>
+            <Planos />
+          </Layout>
+        } />
+        <Route path="/boletos" element={
+          <Layout theme={theme} toggleTheme={toggleTheme}>
+            <Boletos />
+          </Layout>
+        } />
+        <Route path="/configuracoes" element={
+          <Layout theme={theme} toggleTheme={toggleTheme}>
+            <div>
+              <h1>Configurações</h1>
+              <p>Configurações do sistema.</p>
+            </div>
+          </Layout>
+        } />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/404" replace />} />
+      </Routes>
+    </Router>
   );
 }
 
