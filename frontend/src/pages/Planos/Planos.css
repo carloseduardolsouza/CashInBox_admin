@@ -1,21 +1,205 @@
-.ativo {
-  background-color: #0296ff54;
+/* src/pages/Planos/Planos.css */
+.planos-page {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-#MdDeleteForever {
-  width: 35px;
-  height: 35px;
-  background: none;
-  border: solid red 1px;
-  border-radius: 5px;
-  color: red;
-  font-size: 25px;
-  cursor: pointer;
-  margin-top: 10px;
+/* Plan Info */
+.plan-info__name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-#MdDeleteForever:disabled {
-    border: solid #ff00006c 1px;
-    color: #ff00006c;
-    cursor: not-allowed;
+.plan-info__name svg {
+  color: var(--accent-primary);
 }
+
+/* Price Info */
+.price-info {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-secondary);
+}
+
+/* Access Level */
+.access-level__number {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background-color: rgb(59 130 246 / 0.1);
+  color: var(--accent-primary);
+}
+
+/* Star Rating */
+.star-rating {
+  display: flex;
+  gap: 0.125rem;
+  align-items: center;
+}
+
+.star-filled {
+  color: #fbbf24;
+  font-size: 1rem;
+}
+
+.star-empty {
+  color: var(--text-tertiary);
+  font-size: 1rem;
+}
+
+/* Form Grid específico para planos */
+.novo-plano-form .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.novo-plano-form .form-grid .form-group:nth-child(3) {
+  grid-column: span 2;
+}
+
+/* Plan Cards Layout (alternativo) */
+.plans-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.plan-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.plan-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-primary);
+}
+
+.plan-card.selected {
+  border-color: var(--accent-primary);
+  background-color: rgb(59 130 246 / 0.05);
+}
+
+.plan-card__header {
+  display: flex;
+  justify-content: between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.plan-card__checkbox {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.plan-card__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.plan-card__price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-secondary);
+  margin-bottom: 1rem;
+}
+
+.plan-card__features {
+  margin-bottom: 1.5rem;
+}
+
+.plan-card__feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.plan-card__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Popular Badge */
+.plan-card__badge {
+  position: absolute;
+  top: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+/* Responsive Design específico para planos */
+@media (max-width: 768px) {
+  .novo-plano-form .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .novo-plano-form .form-grid .form-group:nth-child(3) {
+    grid-column: span 1;
+  }
+  
+  .plans-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .table th:nth-child(4),
+  .table td:nth-child(4),
+  .table th:nth-child(5),
+  .table td:nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .star-rating {
+    display: none;
+  }
+}
+
+/* Animation for plan cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.plan-card {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.plan-card:nth-child(1) { animation-delay: 0.1s; }
+.plan-card:nth-child(2) { animation-delay: 0.2s; }
+.plan-card:nth-child(3) { animation-delay: 0.3s; }
+.plan-card:nth-child(4) { animation-delay: 0.4s; }

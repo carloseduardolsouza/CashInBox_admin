@@ -1,0 +1,467 @@
+/* src/pages/Configuracoes/Configuracoes.css */
+.configuracoes-page {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.config-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Config Section */
+.config-section {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.config-section:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.config-section__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.config-section__header:hover {
+  background-color: var(--bg-secondary);
+}
+
+.config-section__title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.config-section__icon {
+  width: 24px;
+  height: 24px;
+  color: var(--accent-primary);
+}
+
+.config-section__toggle {
+  font-size: 1rem;
+  color: var(--text-tertiary);
+  transition: transform var(--transition-fast);
+}
+
+.config-section__toggle.open {
+  transform: rotate(180deg);
+}
+
+.config-section__content {
+  padding: 0 1.5rem 1.5rem;
+  border-top: 1px solid var(--border-primary);
+}
+
+/* Config Form */
+.config-form {
+  max-width: 100%;
+}
+
+.config-form h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.config-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Password Input */
+.password-input {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast);
+}
+
+.password-toggle:hover {
+  color: var(--text-secondary);
+}
+
+.password-input .form-input {
+  padding-right: 2.5rem;
+}
+
+/* Checkbox Label */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary);
+  cursor: pointer;
+  position: relative;
+  appearance: none;
+  transition: all var(--transition-fast);
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.checkbox-label input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.checkbox-label:hover input[type="checkbox"] {
+  border-color: var(--accent-primary);
+}
+
+/* API Key Input */
+.api-key-input {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.api-key-input .form-input {
+  flex: 1;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+}
+
+/* Config Actions */
+.config-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-primary);
+}
+
+/* Alert Messages */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  animation: slideDown 0.3s ease;
+}
+
+.alert--success {
+  background-color: rgb(16 185 129 / 0.1);
+  color: var(--accent-secondary);
+  border: 1px solid rgb(16 185 129 / 0.2);
+}
+
+.alert--error {
+  background-color: rgb(239 68 68 / 0.1);
+  color: var(--accent-danger);
+  border: 1px solid rgb(239 68 68 / 0.2);
+}
+
+.alert svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.alert button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color var(--transition-fast);
+  margin-left: auto;
+}
+
+.alert button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Form Help Text */
+.form-help {
+  font-size: 0.8125rem;
+  color: var(--text-tertiary);
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+/* Status Indicators */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.status-indicator--active {
+  background-color: rgb(16 185 129 / 0.1);
+  color: var(--accent-secondary);
+}
+
+.status-indicator--inactive {
+  background-color: rgb(107 114 128 / 0.1);
+  color: var(--text-tertiary);
+}
+
+.status-indicator--warning {
+  background-color: rgb(245 158 11 / 0.1);
+  color: var(--accent-warning);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* Config Stats */
+.config-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.config-stat {
+  background-color: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary);
+}
+
+.config-stat__label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.config-stat__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .config-form .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .config-section__header {
+    padding: 1rem;
+  }
+  
+  .config-section__content {
+    padding: 0 1rem 1rem;
+  }
+  
+  .config-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .config-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .api-key-input {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .config-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .configuracoes-page {
+    margin: 0;
+  }
+  
+  .config-section__title {
+    font-size: 1rem;
+  }
+  
+  .config-section__icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .alert {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .config-form h3 {
+    font-size: 0.9375rem;
+  }
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.config-section__content {
+  animation: slideDown 0.3s ease;
+}
+
+/* Dark theme adjustments */
+.dark-theme .config-section__header:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.dark-theme .checkbox-label input[type="checkbox"] {
+  background-color: var(--bg-secondary);
+}
+
+.dark-theme .alert button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Print styles */
+@media print {
+  .config-actions,
+  .config-section__toggle {
+    display: none !important;
+  }
+  
+  .config-section__content {
+    display: block !important;
+  }
+  
+  .config-section {
+    page-break-inside: avoid;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Focus improvements */
+.config-section__header:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.checkbox-label input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.password-toggle:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Loading states */
+.config-form.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Validation styles */
+.form-input--error {
+  border-color: var(--accent-danger);
+}
+
+.form-input--success {
+  border-color: var(--accent-secondary);
+}
+
+.form-select--error {
+  border-color: var(--accent-danger);
+}
+
+.form-select--success {
+  border-color: var(--accent-secondary);
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .config-section {
+    border-width: 2px;
+  }
+  
+  .checkbox-label input[type="checkbox"] {
+    border-width: 3px;
+  }
+  
+  .config-section__content {
+    border-top-width: 2px;
+  }
+}

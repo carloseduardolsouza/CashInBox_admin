@@ -1,6 +1,13 @@
 // src/App.jsx (versão simplificada para início)
-import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import {
   RiMenu2Fill,
   RiCloseFill,
@@ -17,29 +24,42 @@ import {
   RiSettingsLine,
   RiSettingsFill,
   RiSunLine,
-  RiMoonLine
-} from 'react-icons/ri';
-import './App.css';
+  RiMoonLine,
+} from "react-icons/ri";
+import "./App.css";
+
+import Usuarios from "./pages/Usuarios/Usuarios";
+import Planos from "./pages/Planos/Planos";
+import Boletos from "./pages/Boletos/Boletos";
+import Configuracoes from "./pages/Configuracoes/Configuracoes";
+import Assinaturas from "./pages/Assinaturas/Assinaturas"
+import Home from "./pages/Home/Home"
 
 // Componente de Loading simples
-const LoadingSpinner = ({ text = 'Carregando...' }) => (
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: '200px',
-    gap: '1rem'
-  }}>
-    <div style={{
-      width: '40px',
-      height: '40px',
-      border: '3px solid var(--accent-primary)',
-      borderTop: '3px solid transparent',
-      borderRadius: '50%',
-      animation: 'spin 1s linear infinite'
-    }}></div>
-    <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>{text}</p>
+const LoadingSpinner = ({ text = "Carregando..." }) => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      minHeight: "200px",
+      gap: "1rem",
+    }}
+  >
+    <div
+      style={{
+        width: "40px",
+        height: "40px",
+        border: "3px solid var(--accent-primary)",
+        borderTop: "3px solid transparent",
+        borderRadius: "50%",
+        animation: "spin 1s linear infinite",
+      }}
+    ></div>
+    <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem" }}>
+      {text}
+    </p>
   </div>
 );
 
@@ -54,15 +74,35 @@ const Sidebar = ({ theme, toggleTheme }) => {
   }, [location.pathname]);
 
   const navigationItems = [
-    { path: '/', label: 'Home', icon: RiHomeLine, activeIcon: RiHomeFill },
-    { path: '/assinaturas', label: 'Assinaturas', icon: RiMoneyDollarCircleLine, activeIcon: RiMoneyDollarCircleFill },
-    { path: '/usuarios', label: 'Usuários', icon: RiUserLine, activeIcon: RiUserFill },
-    { path: '/planos', label: 'Planos', icon: RiPriceTagLine, activeIcon: RiPriceTagFill },
-    { path: '/boletos', label: 'Boletos', icon: RiFileTextLine, activeIcon: RiFileTextFill }
+    { path: "/", label: "Home", icon: RiHomeLine, activeIcon: RiHomeFill },
+    {
+      path: "/assinaturas",
+      label: "Assinaturas",
+      icon: RiMoneyDollarCircleLine,
+      activeIcon: RiMoneyDollarCircleFill,
+    },
+    {
+      path: "/usuarios",
+      label: "Usuários",
+      icon: RiUserLine,
+      activeIcon: RiUserFill,
+    },
+    {
+      path: "/planos",
+      label: "Planos",
+      icon: RiPriceTagLine,
+      activeIcon: RiPriceTagFill,
+    },
+    {
+      path: "/boletos",
+      label: "Boletos",
+      icon: RiFileTextLine,
+      activeIcon: RiFileTextFill,
+    },
   ];
 
   const isActive = (path) => {
-    if (path === '/') return location.pathname === '/';
+    if (path === "/") return location.pathname === "/";
     return location.pathname.startsWith(path);
   };
 
@@ -70,15 +110,15 @@ const Sidebar = ({ theme, toggleTheme }) => {
     <>
       {/* Mobile overlay */}
       {isMobileOpen && (
-        <div 
+        <div
           style={{
-            position: 'fixed',
+            position: "fixed",
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'rgba(0, 0, 0, 0.5)',
-            zIndex: 99
+            background: "rgba(0, 0, 0, 0.5)",
+            zIndex: 99,
           }}
           onClick={() => setIsMobileOpen(false)}
         />
@@ -88,19 +128,19 @@ const Sidebar = ({ theme, toggleTheme }) => {
       <button
         onClick={() => setIsMobileOpen(!isMobileOpen)}
         style={{
-          position: 'fixed',
-          top: '1rem',
-          left: '1rem',
+          position: "fixed",
+          top: "1rem",
+          left: "1rem",
           zIndex: 101,
-          display: 'none',
-          width: '44px',
-          height: '44px',
-          borderRadius: 'var(--radius-md)',
-          backgroundColor: 'var(--bg-primary)',
-          border: '1px solid var(--border-primary)',
-          boxShadow: 'var(--shadow-md)',
-          alignItems: 'center',
-          justifyContent: 'center'
+          display: "none",
+          width: "44px",
+          height: "44px",
+          borderRadius: "var(--radius-md)",
+          backgroundColor: "var(--bg-primary)",
+          border: "1px solid var(--border-primary)",
+          boxShadow: "var(--shadow-md)",
+          alignItems: "center",
+          justifyContent: "center",
         }}
         className="mobile-menu-button"
       >
@@ -108,8 +148,10 @@ const Sidebar = ({ theme, toggleTheme }) => {
       </button>
 
       {/* Sidebar */}
-      <nav 
-        className={`sidebar ${isExpanded ? 'expanded' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}
+      <nav
+        className={`sidebar ${isExpanded ? "expanded" : ""} ${
+          isMobileOpen ? "mobile-open" : ""
+        }`}
         onMouseEnter={() => window.innerWidth > 640 && setIsExpanded(true)}
         onMouseLeave={() => window.innerWidth > 640 && setIsExpanded(false)}
       >
@@ -128,12 +170,14 @@ const Sidebar = ({ theme, toggleTheme }) => {
         <div className="sidebar__nav">
           {navigationItems.map((item) => {
             const Icon = isActive(item.path) ? item.activeIcon : item.icon;
-            
+
             return (
               <div key={item.path} className="nav-item">
                 <Link
                   to={item.path}
-                  className={`nav-item__link ${isActive(item.path) ? 'active' : ''}`}
+                  className={`nav-item__link ${
+                    isActive(item.path) ? "active" : ""
+                  }`}
                   onClick={() => setIsMobileOpen(false)}
                 >
                   <Icon className="nav-item__icon" />
@@ -150,9 +194,9 @@ const Sidebar = ({ theme, toggleTheme }) => {
         {/* Footer */}
         <div className="sidebar__footer">
           <button className="theme-toggle" onClick={toggleTheme}>
-            {theme === 'light' ? <RiMoonLine /> : <RiSunLine />}
+            {theme === "light" ? <RiMoonLine /> : <RiSunLine />}
             <span className="theme-toggle__text">
-              {theme === 'light' ? 'Modo Escuro' : 'Modo Claro'}
+              {theme === "light" ? "Modo Escuro" : "Modo Claro"}
             </span>
           </button>
 
@@ -177,46 +221,12 @@ const Sidebar = ({ theme, toggleTheme }) => {
 };
 
 // Páginas simples
-const Home = () => (
-  <div>
-    <h1>Dashboard</h1>
-    <p>Bem-vindo ao painel administrativo do Cash In Box!</p>
-  </div>
-);
-
-const Assinaturas = () => (
-  <div>
-    <h1>Assinaturas</h1>
-    <p>Gerencie as assinaturas do sistema.</p>
-  </div>
-);
-
-const Usuarios = () => (
-  <div>
-    <h1>Usuários</h1>
-    <p>Gerencie os usuários do sistema.</p>
-  </div>
-);
-
-const Planos = () => (
-  <div>
-    <h1>Planos</h1>
-    <p>Gerencie os planos disponíveis.</p>
-  </div>
-);
-
-const Boletos = () => (
-  <div>
-    <h1>Boletos</h1>
-    <p>Gerencie os boletos do sistema.</p>
-  </div>
-);
 
 const NotFound = () => (
-  <div style={{ textAlign: 'center', padding: '2rem' }}>
+  <div style={{ textAlign: "center", padding: "2rem" }}>
     <h1>404 - Página não encontrada</h1>
     <p>A página que você está procurando não existe.</p>
-    <Link to="/" style={{ color: 'var(--accent-primary)' }}>
+    <Link to="/" style={{ color: "var(--accent-primary)" }}>
       Voltar para o início
     </Link>
   </div>
@@ -227,74 +237,89 @@ const Layout = ({ children, theme, toggleTheme }) => (
   <div className="app-layout">
     <Sidebar theme={theme} toggleTheme={toggleTheme} />
     <main className="main-content">
-      <div className="content-wrapper">
-        {children}
-      </div>
+      <div className="content-wrapper">{children}</div>
     </main>
   </div>
 );
 
 // App principal
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
 
   // Carregar tema do localStorage
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      setTheme(prefersDark ? "dark" : "light");
     }
   }, []);
 
   // Aplicar tema ao documento
   useEffect(() => {
-    document.documentElement.className = theme === 'dark' ? 'dark-theme' : '';
-    localStorage.setItem('theme', theme);
+    document.documentElement.className = theme === "dark" ? "dark-theme" : "";
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={
-          <Layout theme={theme} toggleTheme={toggleTheme}>
-            <Home />
-          </Layout>
-        } />
-        <Route path="/assinaturas" element={
-          <Layout theme={theme} toggleTheme={toggleTheme}>
-            <Assinaturas />
-          </Layout>
-        } />
-        <Route path="/usuarios" element={
-          <Layout theme={theme} toggleTheme={toggleTheme}>
-            <Usuarios />
-          </Layout>
-        } />
-        <Route path="/planos" element={
-          <Layout theme={theme} toggleTheme={toggleTheme}>
-            <Planos />
-          </Layout>
-        } />
-        <Route path="/boletos" element={
-          <Layout theme={theme} toggleTheme={toggleTheme}>
-            <Boletos />
-          </Layout>
-        } />
-        <Route path="/configuracoes" element={
-          <Layout theme={theme} toggleTheme={toggleTheme}>
-            <div>
-              <h1>Configurações</h1>
-              <p>Configurações do sistema.</p>
-            </div>
-          </Layout>
-        } />
+        <Route
+          path="/"
+          element={
+            <Layout theme={theme} toggleTheme={toggleTheme}>
+              <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/assinaturas"
+          element={
+            <Layout theme={theme} toggleTheme={toggleTheme}>
+              <Assinaturas />
+            </Layout>
+          }
+        />
+        <Route
+          path="/usuarios"
+          element={
+            <Layout theme={theme} toggleTheme={toggleTheme}>
+              <Usuarios />
+            </Layout>
+          }
+        />
+        <Route
+          path="/planos"
+          element={
+            <Layout theme={theme} toggleTheme={toggleTheme}>
+              <Planos />
+            </Layout>
+          }
+        />
+        <Route
+          path="/boletos"
+          element={
+            <Layout theme={theme} toggleTheme={toggleTheme}>
+              <Boletos />
+            </Layout>
+          }
+        />
+        <Route
+          path="/configuracoes"
+          element={
+            <Layout theme={theme} toggleTheme={toggleTheme}>
+              <Configuracoes />
+            </Layout>
+          }
+        />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>

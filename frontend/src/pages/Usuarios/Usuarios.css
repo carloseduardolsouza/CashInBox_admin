@@ -1,8 +1,87 @@
-.button_delete_user {
-  background-color: red;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 25px;
-  height: 25px;
+/* src/pages/Usuarios/Usuarios.css */
+.usuarios-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* User Info */
+.user-info__name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.user-info__email {
+  font-size: 0.8125rem;
+  color: var(--text-tertiary);
+  margin-top: 0.125rem;
+}
+
+/* Location Info */
+.location-info {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Date Info */
+.date-info {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Form Grid específico para usuários */
+.nova-usuario-form .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.nova-usuario-form .form-grid .form-group:first-child,
+.nova-usuario-form .form-grid .form-group:nth-child(2) {
+  grid-column: span 1;
+}
+
+.nova-usuario-form .form-grid .form-group:nth-child(3),
+.nova-usuario-form .form-grid .form-group:nth-child(4) {
+  grid-column: span 1;
+}
+
+/* Status com ícones */
+.status svg {
+  width: 14px;
+  height: 14px;
+  margin-right: 0.25rem;
+}
+
+/* Responsive Design específico para usuários */
+@media (max-width: 768px) {
+  .nova-usuario-form .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .table th:nth-child(3),
+  .table td:nth-child(3),
+  .table th:nth-child(6),
+  .table td:nth-child(6) {
+    display: none;
+  }
+  
+  .user-info__email {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .table th:nth-child(4),
+  .table td:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .table th:nth-child(5),
+  .table td:nth-child(5) {
+    display: none;
+  }
 }
